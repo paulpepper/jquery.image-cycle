@@ -31,29 +31,29 @@
 
 (function($) {
 
-	$.imageCycle = {
-		version: '1.0.2'
-	};
+    $.imageCycle = {
+        version: '1.0.2'
+    };
 
-	/**
+    /**
 	 * The plug-in function
 	 */
-	$.fn.imageCycle = function(callerConfig) {
-		config = $.extend({
-			displayTime:	8000,
-			transitionTime: 1000
-		}, callerConfig || {});
+    $.fn.imageCycle = function(callerConfig) {
+        config = $.extend({
+            displayTime:	8000,
+            transitionTime: 1000
+        }, callerConfig || {});
 
         $(this).each(function() {
             var imageCycle = new ImageCycle($(this), config);
             imageCycle.init();
         });
 
-		return this;
-	};
+        return this;
+    };
 
     function ImageCycle($baseImage, config) {
-		var currentIndex	= 0;
+        var currentIndex    = 0;
         var images          = new Array();
         var $container      = $('<div class="image-cycle-container" style="position: relative;"></div>');
 
@@ -85,7 +85,7 @@
 
         function createContainer() {
             $container.insertBefore($baseImage)
-                .append($baseImage);
+            .append($baseImage);
 
             copyCss($container, $baseImage, ['width', 'height']);
             
