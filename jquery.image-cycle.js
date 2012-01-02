@@ -63,20 +63,31 @@
             setTimeout(showNextImage, config.displayTime);
         }
 
-        function copyCss($dest, $src, attr) {
-            $dest.css(attr, $src.css(attr));
+        function copyCss($dest, $src, properties) {
+            if (!(properties instanceof Array)) {
+                properties = new Array(properties);
+            }
+
+            $.each(properties, function(i, attr) {
+                $dest.css(attr, $src.css(attr));
+            });
         }
 
-        function copyAttr($dest, $src, key) {
-            $dest.attr(key, $src.attr(key));
+        function copyAttr($dest, $src, keys) {
+            if (!(keys instanceof Array)) {
+                keys = new Array(keys);
+            }
+
+            $.each(keys, function(i, key) {
+                $dest.attr(key, $src.attr(key));
+            })
         }
 
         function createContainer() {
             $container.insertBefore($baseImage)
                 .append($baseImage);
 
-            copyCss($container, $baseImage, 'width');
-            copyCss($container, $baseImage, 'height');
+            copyCss($container, $baseImage, ['width', 'height']);
             
             $baseImage.css({
                 'position': 'absolute',
@@ -86,44 +97,27 @@
         }
 
         function createImages() {
-            // Make the existing, baseImage the first image in our array.
+            // Make the $baseImage the first image in our image array.
             images[0] = $baseImage;
 
             var srcUrls = $baseImage.attr('data-gallery-images');
             srcUrls = srcUrls.split(',');
 
+            // Create the images and insert after the base image.
             $.each(srcUrls, function(i, src) {
                 images[i + 1] = $(new Image());
                 images[i + 1].attr('src', $.trim(src));
 
-                // Copy some css values from the base image.
-                $.each(['position', 'z-index', 'width', 'height', 'left', 'right', 'top', 'bottom'],
-                    function(j, attr) {
-                        copyCss(images[i + 1], $baseImage, attr);
-                    }
-                );
-
-                // Copy some image attributes from the base image.
-                $.each(['width', 'height'], function(j, attr) {
-                    copyAttr(images[i + 1], $baseImage, attr);
-                });
-
-                // Add the image below the base image, but keep it hidden.
+                copyCss(images[i + 1], $baseImage, ['position', 'z-index', 'width', 'height', 'left', 'right', 'top', 'bottom']);
+                copyAttr(images[i + 1], $baseImage, ['width', 'height']);
                 $baseImage.after(images[i + 1].hide());
             });
         }
 
         function showNextImage() {
-            // Fade out current image.
+            // Transition images and increment index mod image-array length.
             images[currentIndex].fadeOut(config.transitionTime);
-            
-            // Increment currentIndex modulo the length of the images array.
-            currentIndex++;
-            if (currentIndex >= images.length) {
-                currentIndex = 0;
-            }
-
-            // Fade in the next image.
+            currentIndex = (currentIndex + 1) % images.length;
             images[currentIndex].fadeIn(config.transitionTime, function() {
                 setTimeout(showNextImage, config.displayTime);
             });
