@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+
+.image-cycle-container .image-navigation {
+    position: absolute;
+    display: table-cell;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+}
+.image-cycle-container .image-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.image-cycle-container .image-navigation li {
+    display: inline-block;
+    margin: 0 6px 10px 6px;
+    padding: 0;
+}
+.image-cycle-container .image-navigation a {
+    float: left;
+    width: 10px;
+    height: 10px;
+    text-decoration: none;
+}
+.image-cycle-container .image-navigation a span {
+    font-size: 35px;
+    color: #FFF;
+}
+.image-cycle-container .image-navigation .current a span {
+    color: #000;
+}
