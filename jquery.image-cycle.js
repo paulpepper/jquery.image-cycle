@@ -157,22 +157,24 @@
         }
 
         function transitionImage(index) {
-            // Transition images and set new index.
-            gallery[currentIndex].$image.fadeOut(config.transitionTime);
+            if (currentIndex !== index) {
+                // Transition images and set new index.
+                gallery[currentIndex].$image.fadeOut(config.transitionTime);
 
-            if (index >= gallery.length) {
-                index = 0;
-            }
+                if (index >= gallery.length) {
+                    index = 0;
+                }
 
-            currentIndex = index;
+                currentIndex = index;
 
-            if (config.navigation) {
-                updateNavigation(currentIndex);
+                if (config.navigation) {
+                    updateNavigation(currentIndex);
+                }
+
+                gallery[currentIndex].$image.fadeIn(config.transitionTime);
             }
             
-            gallery[currentIndex].$image.fadeIn(config.transitionTime, function() {
-                cycleTimerId = setTimeout(showNextImage, config.displayTime);
-            });
+            cycleTimerId = setTimeout(showNextImage, config.displayTime + config.transitionTime);
         }
 
         function updateNavigation(currentIndex) {
