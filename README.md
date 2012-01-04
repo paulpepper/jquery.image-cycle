@@ -6,16 +6,16 @@ jQuery plugin to cycle through a gallery of images.
 Useage
 ------
 
-1. Add an <img/> element to the <body/> of your HTML file.
-2. Set the <img/> src attribute to the URL of the first image to display.
-3. Set the <img/> element's data-gallery-images with a comma-separated list image URLs.
+1. Add an ``<img>`` element to the ``<body/>`` of your HTML file.
+2. Set the ``<img>`` src attribute to the URL of the first image to display.
+3. Set the ``<img>`` element's data-gallery-images with a comma-separated list image URLs.
 
 ### Basic Example
 
     <img src="/images/cat1.jpg" data-gallery-images="/images/cat2.jpg, /images/cat3.jpg" class="gallery" />
 
 Ensure the jQuery library and jQuery.image-cycle.js file are included in the
-<head/> element of your HTML file:
+``<head/>`` element of your HTML file:
     <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery.image-cycle.js"></script>
 
